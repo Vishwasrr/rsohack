@@ -9,100 +9,100 @@ import Form from "react-bootstrap/Form";;
 
 
 function Question() {
- let  [data,setData]=useState([])
-let [Questions,setQuestion]=useState("");
-  let [answer,setAnswer]=useState("")
+  let [data, setData] = useState([])
+  let [Questions, setQuestion] = useState("");
+  let [answer, setAnswer] = useState("")
   let [answers, setAnswers] = useState([]);
- var value=[]
+  var value = []
 
   let navigate = useNavigate();
   let getData = async () => {
 
     try {
-     let res = await axios.get(`${url}/all`);
-    if (res.data.statusCode === 200 ) {
-      if (res.data.users.length>0) {
-for (let i in res.data.users) {
-  value.push(res.data.users[i]);
-}
-        ;
+      let res = await axios.get(`${url}/all`);
+      if (res.data.statusCode === 200) {
+        if (res.data.users.length > 0) {
+          for (let i in res.data.users) {
+            value.push(res.data.users[i]);
+          }
+          ;
 
-        setData(value)
-
-
-      
-      }
-    }
-    
-   
-  } catch (error) {
-    console.log(error);
-    
-  }
-    
-  };
-
- 
-useEffect(() => {
-  getData();
-}, []);
-
-let handleSubmit = async () => {
- 
-setAnswers([])
-console.log(answers)
-
- 
-  let reqBody = {
-    question:Questions,
-    answers,
-  };
-  console.log("hello");
-  console.log(reqBody);
-  let res = await axios.post(`${url}/questions`, reqBody);
-  if (res.data.statusCode >= 200) {
-    console.log("new")
-    getData();
-  } else {
-    console.log(res.data.message);
-  }
-
-  
-};
+          setData(value)
 
 
-let handleChange = async (value,id) => {
-  let new_arr=[]
-  for (let obj of data) {
-        if (obj._id === id) {
-           new_arr.push(obj.answers)
+
         }
       }
-new_arr[0].push(answer)
+
+
+    } catch (error) {
+      console.log(error);
+
+    }
+
+  };
+
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  let handleSubmit = async () => {
+
+    setAnswers([])
+    console.log(answers)
+
+
+    let reqBody = {
+      question: Questions,
+      answers,
+    };
+    console.log("hello");
+    console.log(reqBody);
+    let res = await axios.post(`${url}/questions`, reqBody);
+    if (res.data.statusCode >= 200) {
+      console.log("new")
+      getData();
+    } else {
+      console.log(res.data.message);
+    }
+
+
+  };
+
+
+  let handleChange = async (value, id) => {
+    let new_arr = []
+    for (let obj of data) {
+      if (obj._id === id) {
+        new_arr.push(obj.answers)
+      }
+    }
+    new_arr[0].push(answer)
     console.log(new_arr);
-  setAnswers(new_arr[0])
-   let question= value;
-   let reqBody = {
-     question,
-     answers
-   };
-   console.log("hello")
-   console.log(reqBody)
-  
+    setAnswers(new_arr[0])
+    let question = value;
+    let reqBody = {
+      question,
+      answers
+    };
+    console.log("hello")
+    console.log(reqBody)
+
     let res = await axios.put(`${url}/add_answer`, reqBody);
     if (res.data.statusCode === 200) {
-  getData();
+      getData();
     } else {
       console.log(res.data.message);
     }
   };
 
-  
+
 
   return (
     <div>
-      <div style={{ border: " 2px solid black",padding: " 5px"}}>
-        <h3>Post A question</h3>
+      <div style={{ border: " 2px solid blue", padding: " 5px" }}>
+        <h3>Ask a Question</h3>
         <Form>
           <Form.Group className="mb-3">
             <Form.Label>Post Question</Form.Label>
@@ -114,7 +114,7 @@ new_arr[0].push(answer)
               }}
             />
           </Form.Group>
-          <Button variant="primary" onClick={() => handleSubmit()}>
+          <Button variant="success" onClick={() => handleSubmit()}>
             Submit
           </Button>
         </Form>
@@ -123,7 +123,7 @@ new_arr[0].push(answer)
         {data.map((e, i) => {
           return (
             <>
-              <div style={{ border: " 2px solid black" }} key={i}>
+              <div style={{ border: " 2px solid blue" }} key={i}>
                 <div
                   style={{
                     "font-weight": "bold",
@@ -150,7 +150,7 @@ new_arr[0].push(answer)
                 <div>
                   <Form>
                     <Form.Group className="mb-3">
-                      <Form.Label>Psot answers</Form.Label>
+                      <Form.Label>Answer this</Form.Label>
                       <Form.Control
                         type="text"
                         placeholder="Enter Your answer"
@@ -160,7 +160,7 @@ new_arr[0].push(answer)
                       />
                     </Form.Group>
                     <Button
-                      variant="primary"
+                      variant="success"
                       onClick={() => handleChange(e.question, e._id)}
                     >
                       Submit
