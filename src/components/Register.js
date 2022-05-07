@@ -7,21 +7,21 @@ import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 
 function Register() {
-  
- 
+
+
   let [name, setName] = useState("");
   let [password, setPassword] = useState("");
   let [email, setEmail] = useState("");
   let navigate = useNavigate();
-useEffect(() => {
+  useEffect(() => {
 
-}, []);
- 
+  }, []);
+
   let handleSubmit = async () => {
     let reqBody = {
-     name,
-     password,
-     email
+      name,
+      password,
+      email
     };
     let res = await axios.post(`${url}/signup`, reqBody);
     if (res.data.statusCode === 200) {
@@ -31,10 +31,10 @@ useEffect(() => {
     }
   };
 
- 
+
   return (
     <>
-      <Form >
+      <Form className="form-fields">
         <Form.Group className="mb-3">
           <Form.Label>Name</Form.Label>
           <Form.Control
@@ -60,17 +60,17 @@ useEffect(() => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-
-      
-
-        <Button variant="primary" onClick={() => handleSubmit()}>
+        <div><Button variant="primary" onClick={() => handleSubmit()}>
           Submit
         </Button>
+        </div>
+        <br></br>
+        <div >
+
+          <Link to='/Login'><button >Login?</button></Link>
+        </div>
       </Form>
-      <div >
-               
-                <Link to='/Login'><button >Login?</button></Link>
-            </div>
+
     </>
   );
 }
