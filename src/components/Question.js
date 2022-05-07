@@ -103,7 +103,7 @@ function Question() {
     <div>
       <div style={{ border: " 2px solid blue", padding: " 5px" }}>
         <h3>Ask a Question</h3>
-        <Form>
+        <Form className="question-fields">
           <Form.Group className="mb-3">
             <Form.Label>Post Question</Form.Label>
             <Form.Control
